@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
 
-def random_dates(start = pd.to_datetime('2022-01-01'), end = pd.to_datetime('2022-01-5'), sample_size = 100, unit='D', seed=None):
+
+def random_dates(start=pd.to_datetime('2022-01-01'), end=pd.to_datetime('2022-01-5'), sample_size=100, unit='D', seed=None):
     """
     start - Date from generation starts
     end - Date where generation stop
@@ -11,6 +12,7 @@ def random_dates(start = pd.to_datetime('2022-01-01'), end = pd.to_datetime('202
 
      return array of Timestamp
     """
+
     if not seed:
         np.random.seed(0)
 
@@ -47,16 +49,16 @@ def make_pivot_table(data):
     return grouped by day and user_id, services
     """
 
-    output = pd.pivot_table(data, values='value_spent', index=['user_id', 'date'], columns='operation_name',
-                            aggfunc=np.sum, fill_value=0)
+    output = pd.pivot_table(data, values='value_spent', index=['user_id', 'date'],
+                            columns='operation_name', aggfunc=np.sum, fill_value=0
+                            )
     output.reset_index(inplace=True)
     output = pd.DataFrame(output.values, columns=list(output.columns))
 
     return output
 
+
 data = generate_data(size=100000, unique_users=1000)
-
-
 output = make_pivot_table(data)
 
 data.to_csv('input.csv')
