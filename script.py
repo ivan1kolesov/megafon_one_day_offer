@@ -55,5 +55,11 @@ def make_pivot_table(data):
     return output
 
 data = generate_data(size=100000, unique_users=1000)
+
+
 output = make_pivot_table(data)
+
+data.to_csv('input.csv')
+output.to_csv('output.csv')
+
 print(output.head(20))
